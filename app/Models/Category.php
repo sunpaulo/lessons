@@ -18,4 +18,16 @@ class Category extends AbstractModel
     const COL_IS_PUBLISHED = 'published';
     const COL_CREATOR_ID = 'creator_id';
     const COL_MODERATOR_ID = 'moderator_id';
+
+    protected $fillable = [self::COL_TITLE, self::COL_SLUG, self::COL_PARENT_ID,
+        self::COL_IS_PUBLISHED, self::COL_CREATOR_ID, self::COL_MODERATOR_ID];
+
+    /**
+     * return children of category
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function children()
+    {
+        return $this->hasMany(self::class, self::COL_PARENT_ID);
+    }
 }

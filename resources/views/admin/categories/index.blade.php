@@ -24,10 +24,15 @@
                         <tr>
                             <td>{{ $category->title }}</td>
                             <td>{{ $category->published }}</td>
-                            <td>
-                                <a href="{{ route('admin.category.edit', ['id' => $category->id]) }}">
-                                    <i class="fa fa-edit"></i>
-                                </a>
+                            <td class="text-right">
+                                <form action="{{ route('admin.category.destroy', $category) }}" onsubmit="if(confirm('Удалить?')) { return true }else{ return false }" method="post">
+                                    {{ method_field('delete') }}
+                                    {{ csrf_field() }}
+
+                                    <a href="{{ route('admin.category.edit', $category) }}" class="btn btn-default">Изменить</a>
+
+                                    <button type="submit" class="btn btn-danger">Удалить</button>
+                                </form>
                             </td>
                         </tr>
                     @empty

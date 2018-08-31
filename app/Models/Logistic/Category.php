@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Models\Logistic;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 
 trait Category
 {
@@ -29,15 +31,14 @@ trait Category
     {
         return $this->{self::COL_SLUG};
     }
-    
+
     /**
-      * @return $this
-      */
-    public function setSlug($value)
+     * 
+     */
+    public function setSlugAttribute()
     {
-        $this->{self::COL_SLUG} = self::createSlug($value);
-        
-        return $this;
+        $this->attributes[self::COL_SLUG] = Str::slug(mb_substr($this->{self::COL_TITLE}, 0, 40) . '-' . Carbon::now()
+                ->format('dmyHi'), '-');
     }
     
     /**
@@ -51,7 +52,7 @@ trait Category
     /**
       * @return $this
       */
-    public function setParentId(int $value)
+    public function setParentId($value)
     {
         $this->{self::COL_PARENT_ID} = $value;
         
@@ -69,7 +70,7 @@ trait Category
     /**
       * @return $this
       */
-    public function setIsPublished(bool $value)
+    public function setIsPublished($value)
     {
         $this->{self::COL_IS_PUBLISHED} = $value;
         
@@ -87,7 +88,7 @@ trait Category
     /**
       * @return $this
       */
-    public function setCreatorId(int $value)
+    public function setCreatorId($value)
     {
         $this->{self::COL_CREATOR_ID} = $value;
 
@@ -105,36 +106,10 @@ trait Category
     /**
       * @return $this
       */
-    public function setModeratorId(int $value)
+    public function setModeratorId($value)
     {
         $this->{self::COL_MODERATOR_ID} = $value;
 
         return $this;
-    }
-    
-    public static function createSlug($text)
-    {
-        // replace non letter or digits by - 
-        $text = preg_replace('~[^\pL\d]+~u', '-', $text);
-        
-        // transliterate
-        $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
-        
-        // remove unwanted characters
-        $text = preg_replace('~[^-\w]+', '', $text);
-        
-        $text = trim($text, '-');
-        
-        // remove duplicate
-        $text = preg_replace('~-+~', '-', $text);
-        
-        // lowercase
-        $text = strtolower($text);
-        
-        if (empty($text)) {
-            return 'n-a';
-        }
-        
-        return $text;
     }
 }
