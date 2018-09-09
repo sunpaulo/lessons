@@ -30,4 +30,12 @@ class Category extends AbstractModel
     {
         return $this->hasMany(self::class, self::COL_PARENT_ID);
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function creator()
+    {
+        return $this->belongsTo(User::class, self::COL_CREATOR_ID);
+    }
 }

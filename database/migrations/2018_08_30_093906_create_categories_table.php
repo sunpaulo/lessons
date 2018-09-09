@@ -22,12 +22,12 @@ class CreateCategoriesTable extends Migration
             $table->string(Category::COL_SLUG)->unique();
             $table->integer(Category::COL_PARENT_ID)->nullable();
             $table->boolean(Category::COL_IS_PUBLISHED)->default(true);
-            $table->integer(Category::COL_CREATOR_ID)->nullable();
-            $table->integer(Category::COL_MODERATOR_ID)->nullable();
+            $table->unsignedInteger(Category::COL_CREATOR_ID)->nullable();
+            $table->unsignedInteger(Category::COL_MODERATOR_ID)->nullable();
             $table->timestamps();
 
-            $table->index([Category::COL_CREATOR_ID], 'fk_category_creator_idx');
-            $table->index([Category::COL_MODERATOR_ID], 'fk_category_moderator_idx');
+            $table->index(Category::COL_CREATOR_ID, 'fk_category_creator_idx');
+            $table->index(Category::COL_MODERATOR_ID, 'fk_category_moderator_idx');
 
             $table->foreign(Category::COL_CREATOR_ID, 'fk_category_creator_idx')
                 ->references('id')->on(User::TAB_NAME)

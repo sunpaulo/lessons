@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models\Logistic;
+
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
