@@ -22,7 +22,7 @@ class CreateCategoriesTable extends Migration
             $table->string(Category::COL_SLUG)->unique();
             $table->integer(Category::COL_PARENT_ID)->nullable();
             $table->boolean(Category::COL_IS_PUBLISHED)->default(true);
-            $table->unsignedInteger(Category::COL_CREATOR_ID)->nullable();
+            $table->unsignedInteger(Category::COL_CREATOR_ID);
             $table->unsignedInteger(Category::COL_MODERATOR_ID)->nullable();
             $table->timestamps();
 

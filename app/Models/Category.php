@@ -38,4 +38,15 @@ class Category extends AbstractModel
     {
         return $this->belongsTo(User::class, self::COL_CREATOR_ID);
     }
+
+    // polymorphic relation with articles
+    public function articles()
+    {
+        return $this->morphedByMany(Article::class, 'categoryable');
+    }
+
+    public function scopeLastCategories($query, $count)
+    {
+        return $query->orderByDesc(self::COL_CREATED_AT)->take($count)->get();
+    }
 }

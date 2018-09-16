@@ -35,4 +35,9 @@ class Article extends AbstractModel
     {
         return $this->morphToMany(Category::class, 'categoryable');
     }
+
+    public function scopeLastArticles($query, $count)
+    {
+        return $query->orderByDesc(self::COL_CREATED_AT)->take($count)->get();
+    }
 }

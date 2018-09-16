@@ -17,6 +17,7 @@
 
             {{-- Form include --}}
             @include('admin.categories.partials.form')
+            <input type="hidden" name="moderator_id" value="{{ Auth::id() }}">
         </form>
 
     </div>
